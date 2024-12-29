@@ -1,0 +1,90 @@
+<em>Le nombre de formation est {{tabfor|length}}</em>
+<br>
+
+<em> les formation theorique sont : 
+{% for i in tabfor %}
+
+{% if i.Description=='formation
+            theorique' %}
+<ul><li>  {{i.Titre}}        </li></ul>
+{% endif %}
+
+
+{%endfor%}
+
+</em>
+
+
+<em>
+{%  set max=0 %}
+{% set total=0 %}
+{%   for i in tabfor  %}
+
+{% set  total= total + i.nb_participants  %}
+
+
+
+{% if i.nb_participants > max %}
+{%  set max=i.nb_participants      %}
+
+{%endif%}
+
+{%   if max==i.nb_participants%}
+le tite du plus grand nbr particip : 
+{{i.Titre}}
+{%endif%}
+
+
+
+{%endfor %}
+
+</br>
+<strong> TOTAL EST : {{ total}} </strong>
+
+
+
+
+
+
+ </em>
+
+
+
+<table border="2">
+
+
+
+<tr>
+<th> titre  </th>
+<th> description  </th>
+<th> date debut  </th>
+<th> date fin  </th>
+<th> nb participant  </th>
+
+</tr>
+
+<tr>
+{% for i in tabfor      %}
+
+
+<td> {{i.Titre | upper }}  </td>
+<td> {{i.Description }}  </td>
+<td> {{i.date_debut }}  </td>
+<td> {{i.date_fin }}  </td>
+<td> {{i.nb_participants }}  </td>
+<td> {% if i.nb_participants ==  0 %}
+<form action="{{path('D',{'titre':i.Titre}    )}}">
+ <input type="submit" value="participer" >     </form>
+{%endif%}   </td>
+
+
+
+ </tr>
+{% endfor %}
+
+
+
+
+
+
+</table>
